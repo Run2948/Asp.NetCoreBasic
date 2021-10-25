@@ -32,3 +32,6 @@
 27. CICD Azure DevOps.mp4
 ```
 
+### 视频地址
+
+[ASP.NET Core MVC入门到进阶](https://www.bilibili.com/video/BV18h411879a/)
