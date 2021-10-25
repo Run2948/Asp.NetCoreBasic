@@ -13,6 +13,7 @@ using Heavy.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Heavy.Web
 {
@@ -91,14 +92,18 @@ namespace Heavy.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // app.UseWelcomePage();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages();
                 app.UseDatabaseErrorPage();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                // app.UseExceptionHandler("/Home/MyError");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }

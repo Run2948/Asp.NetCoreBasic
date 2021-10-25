@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Heavy.Web.Data;
 using Microsoft.AspNetCore.Mvc;
 using Heavy.Web.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Heavy.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ILogger<HomeController> _logger;
+
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
+
         public IActionResult Index()
         {
+            _logger.LogInformation(MyLogEventIds.HomePage, "Visiting Home Index..");
+            // throw new Exception("something happened!");
             return View();
         }
 
@@ -24,6 +35,11 @@ namespace Heavy.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult MyError()
+        {
+            return View();
         }
     }
 }
