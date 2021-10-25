@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Heavy.Web.Data;
+using Heavy.Web.Models;
 using Heavy.Web.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,7 +34,14 @@ namespace Heavy.Web
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+
+            services.AddDefaultIdentity<ApplicationUser>(options =>
+                {
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredLength = 1;
+                })
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
