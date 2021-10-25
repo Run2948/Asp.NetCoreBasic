@@ -5,7 +5,7 @@
     <div class="card-body">
         <h5 class="card-title">@Model.Title</h5>
         <p class="card-text">
-            by @Model.Artist @@ @Model.ReleaseDate.ToString("yyyy-MM-dd")
+            by @Html.Raw(@Model.Artist) @@ @Model.ReleaseDate.ToString("yyyy-MM-dd")
         </p>
         <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-secondary">查看明细</a>
         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">编辑</a>

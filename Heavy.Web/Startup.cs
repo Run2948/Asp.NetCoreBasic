@@ -75,6 +75,18 @@ namespace Heavy.Web
             services.AddSingleton<IAuthorizationHandler, EmailHandler>();
             services.AddSingleton<IAuthorizationHandler, CanEditAlbumHandler>();
             services.AddSingleton<IAuthorizationHandler, AdministratorsHandler>();
+
+            services.AddAntiforgery(options =>
+            {
+                options.FormFieldName = "AntiforgeryFieldname";
+                options.HeaderName = "X-CSRF-TOKEN-HEADERNAME";
+                options.SuppressXFrameOptionsHeader = false;
+            });
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 using Heavy.Web.Models;
 using Heavy.Web.Services;
 using Heavy.Web.ViewModels;
@@ -12,10 +13,13 @@ namespace Heavy.Web.Controllers
     public class AlbumController : Controller
     {
         private readonly IAlbumService _albumService;
+        private readonly HtmlEncoder _htmlEncoder;
 
-        public AlbumController(IAlbumService albumService)
+        public AlbumController(IAlbumService albumService,
+            HtmlEncoder htmlEncoder)
         {
             _albumService = albumService;
+            _htmlEncoder = htmlEncoder;
         }
 
         // GET: Album
@@ -52,13 +56,12 @@ namespace Heavy.Web.Controllers
             {
                 ModelState.AddModelError(string.Empty, "Model is not valid");
                 return View();
-
             }
             try
             {
                 var newModel = await _albumService.AddAsync(new Album
                 {
-                    Artist = albumCreateViewModel.Artist,
+                    Artist = _htmlEncoder.Encode(albumCreateViewModel.Artist),
                     Title = albumCreateViewModel.Title,
                     CoverUrl = albumCreateViewModel.CoverUrl,
                     Price = albumCreateViewModel.Price,
