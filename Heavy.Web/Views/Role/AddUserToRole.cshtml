@@ -9,7 +9,7 @@
 <form asp-action="AddUserToRole" method="post">
     <input type="hidden" name="roleId" value="@Model.RoleId" />
 
-    <select class="form-control" asp-for="UserId" asp-items="@(new SelectList(Model.Users, "Id", "UserName"))">
+    <select class="form-control" style="width: 300px; display: inline;" asp-for="UserId" asp-items="@(new SelectList(Model.Users, "Id", "UserName"))">
         <option> -- 请选择一个用户 -- </option>
     </select>
 

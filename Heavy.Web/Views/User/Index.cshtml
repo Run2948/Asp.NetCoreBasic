@@ -27,7 +27,7 @@
             <td>@u.IdCardNo</td>
             <td>@u.BirthDate</td>
             <td>
-                <form asp-action="DeleteUser" asp-route-id="@u.Id" method="post">
+                <form asp-action="DeleteUser" asp-route-id="@u.Id" method="post" style="white-space: nowrap;">
                     <a asp-action="EditUser" asp-route-id="@u.Id" class="btn btn-primary">编辑</a>
                     <button type="submit" class="btn btn-danger"
                             onclick="return confirm('确认删除？')">

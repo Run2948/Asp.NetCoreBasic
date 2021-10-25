@@ -53,6 +53,12 @@ namespace Heavy.Web
                 });
 
             services.AddScoped<IAlbumService, AlbumEfService>();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("仅限管理员", policy => policy.RequireRole("Administrators"));
+                options.AddPolicy("编辑专辑", policy=> policy.RequireClaim("Edit Albums"));
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

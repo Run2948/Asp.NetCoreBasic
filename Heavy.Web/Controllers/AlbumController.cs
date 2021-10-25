@@ -2,11 +2,13 @@
 using Heavy.Web.Models;
 using Heavy.Web.Services;
 using Heavy.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Heavy.Web.Controllers
 {
+    [Authorize(Policy = "编辑专辑")]
     public class AlbumController : Controller
     {
         private readonly IAlbumService _albumService;
