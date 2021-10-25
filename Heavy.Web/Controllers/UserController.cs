@@ -21,6 +21,7 @@ namespace Heavy.Web.Controllers
             _userManager = userManager;
         }
 
+        // [RequireHttps]
         public async Task<IActionResult> Index()
         {
             var users = await _userManager.Users.ToListAsync();

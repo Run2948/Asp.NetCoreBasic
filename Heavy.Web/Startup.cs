@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Heavy.Web.Data;
+using Heavy.Web.Filters;
 using Heavy.Web.Models;
 using Heavy.Web.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -87,6 +88,10 @@ namespace Heavy.Web
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+
+                // options.Filters.Add(new LogResourceFilter());
+                // options.Filters.Add(typeof(LogAsyncResourceFilter));
+                options.Filters.Add<LogResourceFilter>();
             });
         }
 
