@@ -6,6 +6,7 @@ using Heavy.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
 namespace Heavy.Web.Controllers
@@ -33,8 +34,9 @@ namespace Heavy.Web.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        [IgnoreAntiforgeryToken]
+        [ValidateAntiForgeryToken]
+        //[IgnoreAntiforgeryToken]
+        // public async Task<IActionResult> AddUser([Bind("AnotherUser")] UserAddViewModel userAddViewModel)
         public async Task<IActionResult> AddUser(UserAddViewModel userAddViewModel)
         {
             if (!ModelState.IsValid)

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Heavy.Web.ViewModels
 {
     public class UserAddViewModel
     {
+        // [BindNever]
         [Required]
         [Display(Name = "用户名")]
         public string UserName { get; set; }
@@ -31,4 +33,5 @@ namespace Heavy.Web.ViewModels
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
     }
+
 }
