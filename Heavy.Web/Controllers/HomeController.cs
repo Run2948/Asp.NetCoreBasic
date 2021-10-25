@@ -7,6 +7,7 @@ using Heavy.Web.Data;
 using Heavy.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Heavy.Web.Models;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
 namespace Heavy.Web.Controllers
@@ -15,13 +16,18 @@ namespace Heavy.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IMemoryCache _memoryCache;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,
+            IMemoryCache memoryCache)
         {
             _logger = logger;
+            _memoryCache = memoryCache;
         }
 
         // [LogResourceFilter]
+        // [ResponseCache(Duration = 30, Location = ResponseCacheLocation.Client)]
+        [ResponseCache(CacheProfileName = "Default")]
         public IActionResult Index()
         {
             _logger.LogInformation(MyLogEventIds.HomePage, "Visiting Home Index..");

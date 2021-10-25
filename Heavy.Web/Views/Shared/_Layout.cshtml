@@ -68,8 +68,10 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2019 - Heavy.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-
-            @await Component.InvokeAsync("InternetStatus")
+            
+            <cache expires-after="@TimeSpan.FromSeconds(30)">
+                @await Component.InvokeAsync("InternetStatus")
+            </cache>
         </div>
     </footer>
 

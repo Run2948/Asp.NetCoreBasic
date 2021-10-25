@@ -92,7 +92,26 @@ namespace Heavy.Web
                 // options.Filters.Add(new LogResourceFilter());
                 // options.Filters.Add(typeof(LogAsyncResourceFilter));
                 options.Filters.Add<LogResourceFilter>();
+
+                options.CacheProfiles.Add("Default", new CacheProfile
+                {
+                    Duration = 60
+                });
+                options.CacheProfiles.Add("Never", new CacheProfile
+                {
+                    Location = ResponseCacheLocation.None,
+                    NoStore = true
+                });
             });
+
+            // services.AddMemoryCache();
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = "localhost";
+                options.InstanceName = "redis-for-albums";
+            });
+
+            services.AddResponseCompression();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -112,6 +131,8 @@ namespace Heavy.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseResponseCompression();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
